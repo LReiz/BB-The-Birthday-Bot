@@ -70,12 +70,6 @@ class BirthdayCardPoster:
             for i in range(2):
                 self.chromeWebdriver.get(FABEBOOK_LOGIN_PAGE.format(userId=self.userId))
 
-                # self.chromeWebdriver.find_element_by_id('m_login_email').clear
-                # self.chromeWebdriver.find_element_by_id('m_login_email').send_keys(email)
-
-                # self.chromeWebdriver.find_element_by_id('m_login_password').clear
-                # self.chromeWebdriver.find_element_by_id('m_login_password').send_keys(password)
-
                 self.chromeWebdriver.find_element_by_id('email').clear
                 self.chromeWebdriver.find_element_by_id('email').send_keys(email)
 
@@ -95,16 +89,22 @@ class BirthdayCardPoster:
         except:
             print("Não foi possível logar na segunda opção")
 
-        self.chromeWebdriver.get((FABEBOOK_LOGIN_PAGE+'mentions/').format(userId=self.userId))
+
 
     def loadCredentials(self, filePath):
         jsonObject = open(filePath)
         return json.load(jsonObject)
 
     def sendImage(self):
+        self.chromeWebdriver.get((FABEBOOK_LOGIN_PAGE+'mentions/').format(userId=self.userId))
         time.sleep(3)
         file = os.path.abspath('./temp/finalCard.png')
-        self.chromeWebdriver.find_element_by_xpath("//input[@accept='image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv']").send_keys(file)
+        try:
+            self.chromeWebdriver.find_element_by_xpath("//input[@accept='image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv']").send_keys(file)
+        except:
+            self.chromeWebdriver.get((FABEBOOK_LOGIN_PAGE).format(userId=self.userId))
+            time.sleep(3)
+            self.chromeWebdriver.find_element_by_xpath("//input[@accept='image/*,image/heif,image/heic,video/*,video/mp4,video/x-m4v,video/x-matroska,.mkv']").send_keys(file)
 
     def sendText(self):
         time.sleep(3)

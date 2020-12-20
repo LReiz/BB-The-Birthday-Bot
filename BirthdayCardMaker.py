@@ -48,9 +48,14 @@ class BirthdayCardMaker:
         self.saveFinalText()
 
     def placeFriendCharacteristics(self, textModel):
+        place = self.pictureData['background'].split('/')[-1]
+        place = place.split('.')[0]
+        firstName = self.friendData['name'].split(' ')[0]
         shuffledCharacteristics = self.friendData['characteristics'].copy()
         random.shuffle(shuffledCharacteristics)
-        self.bdayMessage = textModel.format(arr=shuffledCharacteristics)
+        self.bdayMessage = textModel.format(char=shuffledCharacteristics, 
+                                            name=firstName, 
+                                            place=place)
 
     def saveFinalText(self):
         try:
@@ -78,8 +83,14 @@ class BirthdayCardMaker:
 
     def selectBodies(self):
         bodies = [f for f in listdir('./bday_assets/bodies/') if isfile(join('./bday_assets/bodies/', f))]
-        self.pictureData['bodyMe'] = './bday_assets/bodies/' + bodies[random.randint(0, len(bodies)-1)]
-        self.pictureData['bodyFriend'] = './bday_assets/bodies/' + bodies[random.randint(0, len(bodies)-1)]
+        
+        indexBodyMe = random.randint(0, len(bodies)-1)
+        indexBodyFriend = random.randint(0, len(bodies)-1)
+        while(indexBodyFriend == indexBodyMe):
+            indexBodyFriend = random.randint(0, len(bodies)-1)
+
+        self.pictureData['bodyMe'] = './bday_assets/bodies/' + bodies[indexBodyMe]
+        self.pictureData['bodyFriend'] = './bday_assets/bodies/' + bodies[indexBodyFriend]
 
     def selectHeads(self):
         self.getMyHead()
