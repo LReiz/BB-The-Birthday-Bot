@@ -85,6 +85,11 @@ class FacebookFriendScrapper:
         imageBytes = io.BytesIO(imageContent)
         image = Image.open(imageBytes).convert('RGBA')
 
+        try:
+            mkdir('./database')
+        except:
+            print('File ./database already exists')
+
         friendName = ''.join(self.friendData['name'].split(' '))
         imageFilePath = os.path.join('./database/{}.png'.format(friendName))
         with open(imageFilePath, 'wb') as file:
@@ -136,6 +141,11 @@ class FacebookFriendScrapper:
 
     def saveFriendInDatabase(self):
         friendName = ''.join(self.friendData['name'].split(' '))
+
+        try:
+            mkdir('./database')
+        except:
+            print('File ./database already exists')
 
         with open('./database/{}.json'.format(friendName), 'w') as friendFile:
             json.dump(self.friendData, friendFile, indent=4)
