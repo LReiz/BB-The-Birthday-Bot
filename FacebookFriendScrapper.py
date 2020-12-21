@@ -52,7 +52,7 @@ class FacebookFriendScrapper:
 
         # scrap name
         name = facebookAboutPageHtml.find('title')
-        self.friendData['name'] = name.contents[0]
+        self.friendData['name'] = name.contents[0].replace(' | Facebook', '', 1)
 
         # scrap birthday
         birthday = facebookAboutPageHtml.findAll('td')

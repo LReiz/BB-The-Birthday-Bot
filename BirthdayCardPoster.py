@@ -111,4 +111,3 @@ class BirthdayCardPoster:
         with open('./temp/finalText.json', 'rb') as file:
             finalMessage = json.load(file)['message']
         self.chromeWebdriver.find_elements_by_xpath("//div[@contenteditable='true']")[-1].send_keys(finalMessage)
-        print(self.chromeWebdriver.find_elements_by_xpath("//div[@contenteditable='true']"))

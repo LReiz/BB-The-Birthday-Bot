@@ -22,8 +22,6 @@ class BirthdayCardMaker:
         self.bdayPicture = './temp/bday.png'
         self.makePicture()
         self.makeText()
-        pass
-
 
 
     def makeText(self):
@@ -35,7 +33,9 @@ class BirthdayCardMaker:
         self.selectBodies()
         self.selectHeads()
         finalImage = self.assembleImage()
-        self.savePicture(finalImage)
+        # self.savePicture(finalImage)
+
+        finalImage.show()
 
     def getFriendDataInDatabase(self):
         with open('./database/{}.json'.format(self.friendName), 'rb') as file:
@@ -92,6 +92,9 @@ class BirthdayCardMaker:
         self.pictureData['bodyMe'] = './bday_assets/bodies/' + bodies[indexBodyMe]
         self.pictureData['bodyFriend'] = './bday_assets/bodies/' + bodies[indexBodyFriend]
 
+        self.pictureData['bodyMe'] = './bday_assets/bodies/' + bodies[2]
+        self.pictureData['bodyFriend'] = './bday_assets/bodies/' + bodies[2]
+
     def selectHeads(self):
         self.getMyHead()
         self.pictureData['headMe'] = './temp/headme.png'
@@ -126,7 +129,7 @@ class BirthdayCardMaker:
         for height in range(sizeBg[1]):
             for width in range(sizeBg[0]):
                 if(width < sizeBody[0] and height < sizeBody[1] 
-                    and int(width + relativePositionX*sizeBg[0]) < sizeBg[0]
+                    and int(width - (sizeBody[0]/2) + relativePositionX*sizeBg[0]) < sizeBg[0]
                     and int(height + relativePositionY*sizeBg[1]) < sizeBg[1]
                     and int(width - (sizeBody[0]/2) + relativePositionX*sizeBg[0]) >= 0
                     and int(height + relativePositionY*sizeBg[1]) >= 0
@@ -199,3 +202,6 @@ class BirthdayCardMaker:
         output = ImageOps.fit(image, mask.size, centering=(0.5, 0.5))
         output.putalpha(mask)
         output.save('./temp/headme.png')
+
+
+BirthdayCardMaker('MarceloPreviti')
