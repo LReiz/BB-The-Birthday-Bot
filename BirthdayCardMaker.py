@@ -33,9 +33,7 @@ class BirthdayCardMaker:
         self.selectBodies()
         self.selectHeads()
         finalImage = self.assembleImage()
-        # self.savePicture(finalImage)
-
-        finalImage.show()
+        self.savePicture(finalImage)
 
     def getFriendDataInDatabase(self):
         with open('./database/{}.json'.format(self.friendName), 'rb') as file:
@@ -91,9 +89,6 @@ class BirthdayCardMaker:
 
         self.pictureData['bodyMe'] = './bday_assets/bodies/' + bodies[indexBodyMe]
         self.pictureData['bodyFriend'] = './bday_assets/bodies/' + bodies[indexBodyFriend]
-
-        self.pictureData['bodyMe'] = './bday_assets/bodies/' + bodies[2]
-        self.pictureData['bodyFriend'] = './bday_assets/bodies/' + bodies[2]
 
     def selectHeads(self):
         self.getMyHead()
@@ -202,6 +197,4 @@ class BirthdayCardMaker:
         output = ImageOps.fit(image, mask.size, centering=(0.5, 0.5))
         output.putalpha(mask)
         output.save('./temp/headme.png')
-
-
-BirthdayCardMaker('MarceloPreviti')
+        
