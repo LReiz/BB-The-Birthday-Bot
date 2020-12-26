@@ -78,7 +78,7 @@ class BirthdayCardMaker:
     def selectBackground(self):
         backgrounds = [f for f in listdir('./bday_assets/backgrounds/') if isfile(join('./bday_assets/backgrounds/', f))]
         self.pictureData['background'] = './bday_assets/backgrounds/' + backgrounds[random.randint(0, len(backgrounds)-1)]
-
+    
     def selectBodies(self):
         bodies = [f for f in listdir('./bday_assets/bodies/') if isfile(join('./bday_assets/bodies/', f))]
         
